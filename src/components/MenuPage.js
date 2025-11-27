@@ -120,7 +120,6 @@ function MenuPage({ allTasks, onSelectRange }) {
   const [ranges, setRanges] = useState([]);
   const [progressByRange, setProgressByRange] = useState({});
   const [totalCorrect, setTotalCorrect] = useState(0);
-  const [setCompletedStories] = useState(0); // FIX
 
   useEffect(() => {
     const generated = generateRanges(allTasks);
@@ -130,7 +129,6 @@ function MenuPage({ allTasks, onSelectRange }) {
   useEffect(() => {
     const progress = {};
     let total = 0;
-    let completedCount = 0;
 
     ranges.forEach((range) => {
       let correct = 0;
@@ -140,10 +138,6 @@ function MenuPage({ allTasks, onSelectRange }) {
           correct++;
         }
       });
-
-      if (correct === range.taskIds.length) {
-        completedCount++;
-      }
 
       progress[range.index] = {
         correct,
@@ -156,7 +150,6 @@ function MenuPage({ allTasks, onSelectRange }) {
 
     setProgressByRange(progress);
     setTotalCorrect(total);
-    
   }, [ranges]);
 
   if (!ranges.length) return <div>Загрузка меню...</div>;
@@ -178,7 +171,8 @@ function MenuPage({ allTasks, onSelectRange }) {
           const progress = progressByRange[range.index];
           const from = range.taskIds[0];
           const to = range.taskIds[range.taskIds.length - 1];
-          const label = range.index + 1; // Нумерация с 1
+
+          const label = range.index + 1;
 
           let buttonClass = 'range-button';
 
@@ -215,3 +209,4 @@ function MenuPage({ allTasks, onSelectRange }) {
 }
 
 export default MenuPage;
+
