@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import BackButton from './BackButton';
-import ProgressBar from './ProgressBar';
+// import BackButton from './BackButton';
+// import ProgressBar from './ProgressBar';
 import Task from './Task';
 import {
   isTaskCorrect,
@@ -41,8 +41,8 @@ function TasksPage({ tasks, goBack }) {
   }
 
   const taskIds = tasks.map((t) => t.id);
-  const start = Math.min(...taskIds);
-  const end = Math.max(...taskIds);
+  // const start = Math.min(...taskIds);
+  // const end = Math.max(...taskIds);
 
   return (
     <div className="task-container">

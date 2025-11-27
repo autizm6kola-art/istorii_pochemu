@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { generateRanges } from '../utils/taskUtils';
 import ProgressBar from './ProgressBar';
-import { getTaskKey, clearAllAnswers } from '../utils/storage';
+import {clearAllAnswers } from '../utils/storage';
 import BackButton from './BackButton';
 import '../styles/menuPage.css';
 import { isTaskCorrect } from '../utils/storage';
@@ -10,7 +10,7 @@ function MenuPage({ allTasks, onSelectRange }) {
   const [ranges, setRanges] = useState([]);
   const [progressByRange, setProgressByRange] = useState({});
   const [totalCorrect, setTotalCorrect] = useState(0);
-  const [completedStories, setCompletedStories] = useState(0);
+  const [setCompletedStories] = useState(0);
 
   useEffect(() => {
     const generated = generateRanges(allTasks);
