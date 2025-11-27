@@ -1,11 +1,9 @@
 // src/utils/storage.js
 
-// import { supabase } from './supabaseClient';  // импорт клиента Supabase (предполагается, что он есть)
-
-const STORAGE_PREFIX = "istorii_pochemu_"; // можно поменять на любое название для конкретного приложения
+const STORAGE_PREFIX = "istorii_pochemu_";
 
 // Флаг: false — используем localStorage, true — Supabase
-const USE_SUPABASE = false;  // переключай на true, когда будешь готова к работе с Supabase
+const USE_SUPABASE = false;
 
 // --- Реализация для localStorage ---
 
@@ -41,7 +39,6 @@ const localStorageImpl = {
             localStorageImpl.saveCorrectAnswer(taskId);
           });
         }
-        // Можно оставить старые ключи, как ты делала
       } catch (e) {
         console.error("Ошибка при миграции из", key, e);
       }
@@ -54,21 +51,22 @@ const localStorageImpl = {
       localStorage.removeItem(`${STORAGE_PREFIX}answer_text_${id}`);
       localStorage.removeItem(`${STORAGE_PREFIX}task_inputs_${id}`);
 
-      // Удаляем все подзадания (если они были)
-    let i = 0;
-    while (true) {
-      const key = `${STORAGE_PREFIX}input_correct_${id}_${i}`;
-      if (!localStorage.getItem(key)) break;
-      localStorage.removeItem(key);
-      i++;
-    }
-
-
+      let i = 0;
+      while (true) {
+        const key = `${STORAGE_PREFIX}input_correct_${id}_${i}`;
+        if (!localStorage.getItem(key)) break;
+        localStorage.removeItem(key);
+        i++;
+      }
     });
   },
 };
 
 // --- Реализация для Supabase ---
+// (полностью закомментирована, чтобы проект собирался)
+
+/*
+import { supabase } from './supabaseClient';
 
 const supabaseImpl = {
   clearAllAnswers: async (userId) => {
@@ -86,43 +84,35 @@ const supabaseImpl = {
       .eq('user_id', userId)
       .eq('task_id', id)
       .single();
-    if (error) {
-      console.error('Ошибка получения ответа из Supabase:', error);
-      return false;
-    }
+    if (error) return false;
     return data?.answer_correct === true;
   },
 
   saveCorrectAnswer: async (id, userId) => {
-    const { error } = await supabase
-      .from('answers')
-      .upsert({ user_id: userId, task_id: id, answer_correct: true });
-    if (error) console.error('Ошибка сохранения ответа в Supabase:', error);
+    await supabase.from('answers').upsert({
+      user_id: userId,
+      task_id: id,
+      answer_correct: true,
+    });
   },
 
-  // Для миграции пока можно оставить пустую функцию или добавить логику
-  migrateOldProgress: () => {
-    // Тут пока ничего не делаем
-  },
+  migrateOldProgress: () => {},
 
   clearAnswersByIds: async (ids, userId) => {
     for (const id of ids) {
-      const { error } = await supabase
+      await supabase
         .from('answers')
         .delete()
         .eq('user_id', userId)
         .eq('task_id', id);
-      if (error) console.error('Ошибка удаления ответа в Supabase:', error);
     }
   },
 };
+*/
 
-// --- Общий интерфейс — выбираем реализацию по флагу ---
-
-const storage = USE_SUPABASE ? supabaseImpl : localStorageImpl;
+const storage = localStorageImpl;
 
 // Экспортируем нужные функции
-
 export const clearAllAnswers = (userId) => storage.clearAllAnswers(userId);
 export const isTaskCorrect = (id, userId) => storage.isTaskCorrect(id, userId);
 export const saveCorrectAnswer = (id, userId) => storage.saveCorrectAnswer(id, userId);
@@ -139,4 +129,3 @@ export function saveAnswerText(taskId, text) {
   const key = `${STORAGE_PREFIX}answer_text_${taskId}`;
   localStorage.setItem(key, text);
 }
-
