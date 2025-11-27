@@ -1,6 +1,6 @@
 // src/utils/storage.js
 
-// import { supabase } from './supabaseClient';  // импорт клиента Supabase (предполагается, что он есть)
+import { supabase } from './supabaseClient';  // импорт клиента Supabase (предполагается, что он есть)
 
 const STORAGE_PREFIX = "istorii_pochemu_"; // можно поменять на любое название для конкретного приложения
 
