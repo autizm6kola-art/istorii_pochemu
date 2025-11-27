@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/istorii_pochemu/static/css/main.41ac5593.css",
+    "main.js": "/istorii_pochemu/static/js/main.b531a2d0.js",
+    "static/js/453.d37bcb50.chunk.js": "/istorii_pochemu/static/js/453.d37bcb50.chunk.js",
+    "index.html": "/istorii_pochemu/index.html",
+    "main.41ac5593.css.map": "/istorii_pochemu/static/css/main.41ac5593.css.map",
+    "main.b531a2d0.js.map": "/istorii_pochemu/static/js/main.b531a2d0.js.map",
+    "453.d37bcb50.chunk.js.map": "/istorii_pochemu/static/js/453.d37bcb50.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.41ac5593.css",
+    "static/js/main.b531a2d0.js"
+  ]
+}
