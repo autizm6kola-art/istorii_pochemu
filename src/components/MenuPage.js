@@ -120,7 +120,7 @@ function MenuPage({ allTasks, onSelectRange }) {
   const [ranges, setRanges] = useState([]);
   const [progressByRange, setProgressByRange] = useState({});
   const [totalCorrect, setTotalCorrect] = useState(0);
-  const [completedStories, setCompletedStories] = useState(0); // FIX
+  const [setCompletedStories] = useState(0); // FIX
 
   useEffect(() => {
     const generated = generateRanges(allTasks);
@@ -156,7 +156,7 @@ function MenuPage({ allTasks, onSelectRange }) {
 
     setProgressByRange(progress);
     setTotalCorrect(total);
-    setCompletedStories(completedCount);
+    
   }, [ranges]);
 
   if (!ranges.length) return <div>Загрузка меню...</div>;
